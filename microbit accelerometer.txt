@@ -1,0 +1,23 @@
+//You need to the https://github.com/hidnseek/hidnseek/tree/master/arduino/libraries/MMA8653 
+#include "Wire.h"
+#include "MMA8653.h"
+ 
+MMA8653 accel;
+ 
+void setup() 
+{
+  Serial.begin(9600);
+  accel.begin(false, 2); // 8-bit mode, 2g range
+}
+ 
+ 
+void loop() 
+{
+  accel.update();
+  Serial.print((float)accel.getX() * 0.0156);    
+  Serial.print(" , ");
+  Serial.print((float)accel.getY() * 0.0156);    
+  Serial.print(", ");
+  Serial.println((float)accel.getZ() * 0.0156);
+  delay(250);
+}

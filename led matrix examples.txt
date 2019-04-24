@@ -1,0 +1,54 @@
+//matrix on and off
+#include <Adafruit_Microbit.h>
+
+Adafruit_Microbit_Matrix microbit;
+    
+void setup()
+{  
+  microbit.begin();
+}
+    
+void loop()
+{
+  // Fill screen
+  microbit.fillScreen(LED_ON);
+  delay(1000);
+  //empty screen
+  microbit.fillScreen(LED_OFF);
+  delay(1000);
+}
+
+//yes and no
+#include <Adafruit_Microbit.h>
+
+Adafruit_Microbit_Matrix microbit;
+    
+void setup() 
+{  
+  microbit.begin();
+}
+    
+void loop()
+{
+  // draw a no
+  microbit.show(microbit.NO);
+  delay(1000);
+  // draw a yes
+  microbit.show(microbit.YES);
+  delay(1000);
+}
+
+//string
+#include <Adafruit_Microbit.h>
+
+Adafruit_Microbit_Matrix microbit;
+    
+void setup() 
+{  
+  microbit.begin();
+}
+    
+void loop()
+{
+  microbit.print("HELLO WORLD");
+}

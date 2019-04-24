@@ -1,0 +1,45 @@
+//I needed to modify the https://github.com/closedcube/ClosedCube_HDC1080_Arduino library, otherwise there was compilation errors 
+//you need to change Wire.write(0x00); to Wire.write((byte)0x00); - http://www.microbitlearning.com/wp-content/uploads/2018/05/ClosedCube_HDC1080_Arduino-master.zip 
+//This is the default example
+
+#include <Wire.h>
+#include "ClosedCube_HDC1080.h"
+
+ClosedCube_HDC1080 hdc1080;
+
+void setup()
+{
+Serial.begin(9600);
+Serial.println("ClosedCube HDC1080 Arduino Test");
+
+// Default settings:
+// - Heater off
+// - 14 bit Temperature and Humidity Measurement Resolutions
+hdc1080.begin(0x40);
+
+Serial.print("Manufacturer ID=0x");
+Serial.println(hdc1080.readManufacturerId(), HEX); // 0x5449 ID of Texas Instruments
+Serial.print("Device ID=0x");
+Serial.println(hdc1080.readDeviceId(), HEX); // 0x1050 ID of the device
+
+printSerialNumber();
+
+}
+
+void loop()
+{
+Serial.print("T=");
+Serial.print(hdc1080.readTemperature());
+Serial.print("C, RH=");
+Serial.print(hdc1080.readHumidity());
+Serial.println("%");
+delay(3000);
+}
+
+void printSerialNumber() {
+Serial.print("Device Serial Number=");
+HDC1080_SerialNumber sernum = hdc1080.readSerialNumber();
+char format[12];
+sprintf(format, "%02X-%04X-%04X", sernum.serialFirst, sernum.serialMid, sernum.serialLast);
+Serial.println(format);
+}
